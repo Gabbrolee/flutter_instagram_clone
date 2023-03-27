@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/resources/storage_method.dart';
+import 'package:flutter_instagram_clone/model/user.dart' as model;
 
 class AuthMethod {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -31,18 +32,20 @@ class AuthMethod {
         // add user to our database
         // the set method help to generate same uid for users and doc unlike the add
         // the add method
+        model.User user = model.User(
+            username: username,
+            email: email,
+            uid: credential.user!.uid,
+            bio: bio,
+            followers: [],
+            following: [],
+            photoUrl: photoUrl
+
+        );
         await _firebaseFirestore
             .collection("users")
             .doc(credential.user!.uid)
-            .set({
-          'username': username,
-          'email': email,
-          'uid': credential.user!.uid,
-          'bio': bio,
-          'followers': [],
-          'following': [],
-          'photoUrl': photoUrl
-        });
+            .set(user.toJson());
         res = 'success';
       }
     } catch (err) {
