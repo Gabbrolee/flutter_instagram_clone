@@ -2,11 +2,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/resources/auth_method.dart';
+import 'package:flutter_instagram_clone/screens/login_screen.dart';
 import 'package:flutter_instagram_clone/utils/colour.dart';
 import 'package:flutter_instagram_clone/widget/text_field_input.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_screen_layout.dart';
 import '../utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -149,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: const Text("Already have an account?"),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: navigateToLogin,
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: const Text(
@@ -190,6 +194,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _isLoading = false;
       });
       showSnackBar(res, context);
+    } else {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
+          const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          )
+      ));
     }
+  }
+
+  navigateToLogin(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
   }
 }
