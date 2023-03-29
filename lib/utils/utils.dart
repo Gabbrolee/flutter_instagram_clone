@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 pickImage(ImageSource source) async{
   final ImagePicker _imagePicker = ImagePicker();
 
-  XFile? _file = await _imagePicker.pickImage(source: source);
-
-  if(_file != null){
-    return await _file.readAsBytes();
+  XFile? _file;
+  try{
+    _file = await _imagePicker.pickImage(source: source);
+    if(_file != null) {
+      return await _file.readAsBytes();
+    }
+  }catch(e){
+    print("No image selected $e");
   }
-  print("No image selected");
-}
+  }
+
 
  showSnackBar(String message, BuildContext context){
   ScaffoldMessenger.of(context).showSnackBar(
