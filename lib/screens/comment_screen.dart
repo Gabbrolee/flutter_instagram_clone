@@ -66,7 +66,7 @@ class _CommentScreenState extends State<CommentScreen> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 8),
+                  padding: const EdgeInsets.only(left: 16, right: 8),
                   child: TextField(
                     controller: _commentController,
                     decoration: InputDecoration(
